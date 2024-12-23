@@ -94,9 +94,9 @@ for move in moves:
         posx += dirx
         posy += diry
     #\033[<L>;<C>H
-    #print("\033[0;0H", end='')
+    print("\033[0;0H", end='')
     #print("\033c\033[3J", end='')
-    #print_map(tiles)
+    print_map(tiles)
 
 
 gps = 0
