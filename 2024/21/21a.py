@@ -30,18 +30,18 @@ def tastize(st):
         w = len(tast[0])
 
         while (x, y) != (xt, yt):
-            if yt < y and tast[y - 1][x] is not None:
-                y -= 1
-                moves += '^'
-            elif xt > x and tast[y][x + 1] is not None:
-                x += 1
-                moves += '>'
-            elif yt > y and tast[y + 1][x] is not None:
+            if yt > y and tast[y + 1][x] is not None:
                 y += 1
                 moves += 'v'
             elif xt < x and tast[y][x - 1] is not None:
                 x -= 1
                 moves += '<'
+            elif yt < y and tast[y - 1][x] is not None:
+                y -= 1
+                moves += '^'
+            elif xt > x and tast[y][x + 1] is not None:
+                x += 1
+                moves += '>'
         moves += 'A'
 
     return moves
@@ -75,15 +75,15 @@ def dpadize(st):
         w = len(dpad[0])
 
         while (x, y) != (xt, yt):
-            if yt > y and dpad[y + 1][x] is not None:
+            if xt < x and dpad[y][x - 1] is not None:
+                x -= 1
+                moves += '<'
+            elif yt > y and dpad[y + 1][x] is not None:
                 y += 1
                 moves += 'v'
             elif yt < y and dpad[y - 1][x] is not None:
                 y -= 1
                 moves += '^'
-            elif xt < x and dpad[y][x - 1] is not None:
-                x -= 1
-                moves += '<'
             elif xt > x and dpad[y][x + 1] is not None:
                 x += 1
                 moves += '>'
@@ -105,10 +105,20 @@ with open(in_fn, 'r') as data:
 
 print(ans)
 
-print(tastize('379A'))
+#print(len(dpadize(dpadize(tastize('379A')))))
 
-print(dpadize(dpadize('^A<<^^A')))
-print(dpadize(dpadize('^A^^<<A')))
+#print(dpadize(dpadize('^A<<^^A')))
+#print(dpadize(dpadize('^A^^<<A')))
+
+#print(dpadize(dpadize('<^A')))
+#print(dpadize(dpadize('^<A')))
+#print(dpadize('<^A'))
+#print(dpadize('^<A'))
+
+#print(dpadize('Av<AA'))
+#print(dpadize('A<AvA'))
+
+
 
 """
 789

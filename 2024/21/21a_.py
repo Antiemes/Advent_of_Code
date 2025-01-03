@@ -125,6 +125,12 @@ with open(in_fn, 'r') as data:
         dcombs = []
         for tcomb in getalltcombs('A', code):
             dcombs += getalldcombs('A', tcomb)
+
+        minl = min(len(x) for x in dcombs)
+        for i, comb in enumerate(dcombs):
+            if len(comb) > minl:
+                del(dcombs[i])
+                print(f'del: {comb}')
         
         mll = []
         for dcomb in dcombs:
