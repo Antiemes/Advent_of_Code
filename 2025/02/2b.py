@@ -5,6 +5,7 @@ import sys
 in_fn = sys.argv[1]
 
 arr = []
+invalids = set()
 
 def check(start, end):
     #start = '113'
@@ -20,8 +21,6 @@ def check(start, end):
     100000000-345345236
     """
     
-    ctr = 0
-
     for l in range(len(start), len(end) + 1):
         if l == len(start):
             b = start
@@ -32,15 +31,15 @@ def check(start, end):
         else:
             e = '9' * l
         print(b, e)
-        if len(b) % 2 == 1:
-            continue
-        hl = len(b) // 2
-        for n in range(int(b[:hl]), int(e[:hl]) + 1):
-            m = str(n) + str(n)
-            if int (m) >= int(start) and int(m) <= int(end):
-                ctr += int(m)
-                print(f'  {m}')
-    return ctr
+        for hl in range(1, len(b) // 2 + 1):
+            if len(b) % hl != 0:
+                continue
+            divisor = len(b) // hl
+            for n in range(int(b[:hl]), int(e[:hl]) + 1):
+                m = str(n) * divisor
+                if int (m) >= int(start) and int(m) <= int(end):
+                    invalids.add(int(m))
+                    print(f'  {m}, {divisor}, {hl}')
 
 
 data = open(in_fn, 'r')
@@ -48,9 +47,9 @@ line = data.readline().rstrip("\n")
 intervals = [tuple(i.split("-")) for i in line.split(",")]
 ans = 0
 for (start, end) in intervals:
-    ans += check(start, end)
+    check(start, end)
     #print(start, end)
 
 
-print(ans)
+print(sum(invalids))
 
